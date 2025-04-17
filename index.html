@@ -87,7 +87,7 @@
   <button onclick="startGame()">Start Game</button>
   <div id="game" style="display:none;">
     <div class="clue" id="clue"></div>
-    <input type="text" id="guess" placeholder="Your guess..." />
+    <input type="text" id="guess" placeholder="Your guess..." onkeydown="if(event.key === 'Enter') checkGuess();" />
     <button onclick="checkGuess()">Submit Guess</button>
     <div class="result" id="result"></div>
     <div id="animal-image" style="margin-top: 1rem;"></div>
@@ -301,14 +301,14 @@
   {
     name: "Wallaby",
     difficulty: "medium",
-    habitat: "jungle",
+    habitat: "forest",
     size: "small",
     clues: [
       "I am a small animal.",
-      "I typically live in plains.",
+      "I typically live in wooded areas.",
       "My diet consists of plants.",
-      "I am known for my agility.",
-      "People often associate me with cuteness."
+      "I am known for my hopping.",
+      "People often associate me with Australia."
     ]
   },
   {
@@ -918,7 +918,7 @@
       const guess = document.getElementById('guess').value.trim().toLowerCase();
       if (guess === selectedAnimal.name.toLowerCase()) {
         document.getElementById('correctSound').play();
-        document.getElementById('result').textContent = `🎉 Correct! The animal was ${selectedAnimal.name}.`;
+        document.getElementById('result').innerHTML = `🎉 Correct! The animal was <strong>${selectedAnimal.name}</strong>.<br><em>Fun fact: ${selectedAnimal.clues[selectedAnimal.clues.length - 1]}</em>`;
         clearInterval(window.progressInterval);
         document.getElementById('game').style.display = 'none';
         document.getElementById('play-again').style.display = 'inline-block';
