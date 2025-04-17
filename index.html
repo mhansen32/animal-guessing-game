@@ -5,47 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Animal Guessing Game</title>
   <style>
-    body { font-family: sans-serif; padding: 2rem; background: #f0f8ff; }
-    select, button, input { margin: 0.5rem 0; padding: 0.5rem; font-size: 1rem; }
-    .clue { margin: 1rem 0; font-weight: bold; }
-    .result { font-size: 1.2rem; margin-top: 1rem; }
-  @keyframes fadeIn {
-      to { opacity: 1; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eaf4fb;
+      margin: 2rem;
     }
-  #progress-container {
-      width: 100%;
-      background-color: #ddd;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 1rem;
-    }
-    #progress-bar {
-      animation: pulseReset 0.5s ease;
-      transition: width 0.5s linear, background-color 0.3s ease;
+    #progress-container {
       width: 100%;
       height: 10px;
-      background-color: #4caf50;
-      transition: width 0.5s linear;
+      background: #ddd;
+      margin-top: 1rem;
+      border-radius: 5px;
+      overflow: hidden;
     }
-  @keyframes pulseReset {
+    #progress-bar {
+      width: 100%;
+      height: 100%;
+      background: #4caf50;
+      transition: width 0.5s linear, background-color 0.3s ease;
+    }
+    @keyframes pulseReset {
       0% { transform: scaleX(1); background-color: #2196f3; }
       50% { transform: scaleX(1.05); background-color: #64b5f6; }
       100% { transform: scaleX(1); background-color: #4caf50; }
     }
-  @keyframes confetti {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(300px); opacity: 0; }
-}
-.confetti-piece {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  animation: confetti 2s ease-out forwards;
-  border-radius: 2px;
-}
-
-
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      animation: confetti 2s ease-out forwards;
+      border-radius: 2px;
+    }
+    @keyframes confetti {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(300px); opacity: 0; }
+    }
 <audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
 <audio id="wrongSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
 <audio id="bgm" src="https://cdn.pixabay.com/download/audio/2022/10/17/audio_5787b9ba21.mp3?filename=fantasy-game-loop-114055.mp3" preload="auto" loop autoplay></audio>
