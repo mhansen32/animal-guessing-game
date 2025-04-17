@@ -78,6 +78,136 @@
     let startTime = 0;
     const animals = [
   {
+    name: "Dolphin",
+    difficulty: "easy",
+    habitat: "ocean",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in oceans.",
+      "My diet consists of fish.",
+      "I am known for my intelligence.",
+      "People often associate me with friendliness."
+    ]
+  },
+  {
+    name: "Penguin",
+    difficulty: "medium",
+    habitat: "tundra",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in cold places.",
+      "My diet consists of fish.",
+      "I am known for my waddling.",
+      "People often associate me with cuteness."
+    ]
+  },
+  {
+    name: "Dog",
+    difficulty: "easy",
+    habitat: "home",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in homes.",
+      "My diet consists of meat.",
+      "I am known for my loyalty.",
+      "People often associate me with companionship."
+    ]
+  },
+  {
+    name: "Cat",
+    difficulty: "easy",
+    habitat: "home",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in homes.",
+      "My diet consists of meat.",
+      "I am known for my independence.",
+      "People often associate me with curiosity."
+    ]
+  },
+  {
+    name: "Frog",
+    difficulty: "easy",
+    habitat: "river",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live near water.",
+      "My diet consists of insects.",
+      "I am known for my jumping.",
+      "People often associate me with transformation."
+    ]
+  },
+  {
+    name: "Elephant",
+    difficulty: "easy",
+    habitat: "forest",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live in forests.",
+      "My diet consists of plants.",
+      "I am known for my strength.",
+      "People often associate me with wisdom."
+    ]
+  },
+  {
+    name: "Tiger",
+    difficulty: "hard",
+    habitat: "jungle",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in jungles.",
+      "My diet consists of meat.",
+      "I am known for my strength.",
+      "People often associate me with danger."
+    ]
+  },
+  {
+    name: "Lion",
+    difficulty: "medium",
+    habitat: "plains",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live in plains.",
+      "My diet consists of meat.",
+      "I am known as the king of the jungle.",
+      "People often associate me with power."
+    ]
+  },
+  {
+    name: "Giraffe",
+    difficulty: "easy",
+    habitat: "plains",
+    size: "large",
+    clues: [
+      "I am a tall animal.",
+      "I typically live in plains.",
+      "My diet consists of plants.",
+      "I am known for my long neck.",
+      "People often associate me with height."
+    ]
+  },
+  {
+    name: "Zebra",
+    difficulty: "medium",
+    habitat: "plains",
+    size: "medium",
+    clues: [
+      "I am a striped animal.",
+      "I typically live in plains.",
+      "My diet consists of plants.",
+      "I resemble a horse.",
+      "People often associate me with black and white."
+    ]
+  },
+  {
     name: "Cheetah",
     difficulty: "medium",
     habitat: "desert",
@@ -273,6 +403,450 @@
       "People often associate me with agility."
     ]
   }
+  },
+  {
+    name: "Owl",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in forests.",
+      "My diet consists of meat.",
+      "I am known for my night vision.",
+      "People often associate me with wisdom."
+    ]
+  },
+  {
+    name: "Rabbit",
+    difficulty: "easy",
+    habitat: "plains",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in meadows.",
+      "My diet consists of plants.",
+      "I am known for my speed.",
+      "People often associate me with fertility."
+    ]
+  },
+  {
+    name: "Horse",
+    difficulty: "easy",
+    habitat: "farm",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live on farms.",
+      "My diet consists of plants.",
+      "I am known for my speed.",
+      "People often associate me with strength."
+    ]
+  },
+  {
+    name: "Cow",
+    difficulty: "easy",
+    habitat: "farm",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live on farms.",
+      "My diet consists of plants.",
+      "I am known for my milk.",
+      "People often associate me with calmness."
+    ]
+  }
+  },
+  {
+    name: "Goat",
+    difficulty: "easy",
+    habitat: "farm",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live on farms.",
+      "My diet consists of plants.",
+      "I am known for my horns.",
+      "People often associate me with mischief."
+    ]
+  },
+  {
+    name: "Sheep",
+    difficulty: "easy",
+    habitat: "farm",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live on farms.",
+      "My diet consists of plants.",
+      "I am known for my wool.",
+      "People often associate me with gentleness."
+    ]
+  },
+  {
+    name: "Llama",
+    difficulty: "medium",
+    habitat: "mountain",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in mountains.",
+      "My diet consists of plants.",
+      "I am known for my long neck.",
+      "People often associate me with stubbornness."
+    ]
+  },
+  {
+    name: "Camel",
+    difficulty: "medium",
+    habitat: "desert",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live in deserts.",
+      "My diet consists of plants.",
+      "I am known for my humps.",
+      "People often associate me with endurance."
+    ]
+  },
+  {
+    name: "Moose",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live in forests.",
+      "My diet consists of plants.",
+      "I am known for my antlers.",
+      "People often associate me with strength."
+    ]
+  },
+  {
+    name: "Deer",
+    difficulty: "easy",
+    habitat: "forest",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in forests.",
+      "My diet consists of plants.",
+      "I am known for my agility.",
+      "People often associate me with grace."
+    ]
+  },
+  {
+    name: "Squirrel",
+    difficulty: "easy",
+    habitat: "forest",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in trees.",
+      "My diet consists of nuts.",
+      "I am known for my bushy tail.",
+      "People often associate me with energy."
+    ]
+  },
+  {
+    name: "Beaver",
+    difficulty: "medium",
+    habitat: "river",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live near rivers.",
+      "My diet consists of plants.",
+      "I am known for building dams.",
+      "People often associate me with industriousness."
+    ]
+  },
+  {
+    name: "Eagle",
+    difficulty: "medium",
+    habitat: "mountain",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in mountains.",
+      "My diet consists of meat.",
+      "I am known for my sharp vision.",
+      "People often associate me with freedom."
+    ]
+  },
+  {
+    name: "Octopus",
+    difficulty: "hard",
+    habitat: "ocean",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in oceans.",
+      "My diet consists of meat.",
+      "I am known for my intelligence.",
+      "People often associate me with mystery."
+    ]
+  },
+  {
+    name: "Wolf",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in forests.",
+      "My diet consists of meat.",
+      "I am known for my howl.",
+      "People often associate me with loyalty."
+    ]
+  },
+  {
+    name: "Peacock",
+    difficulty: "medium",
+    habitat: "jungle",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in jungles.",
+      "My diet consists of plants.",
+      "I am known for my colorful feathers.",
+      "People often associate me with beauty."
+    ]
+  },
+  {
+    name: "Bat",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I am active at night.",
+      "My diet consists of insects or fruit.",
+      "I use echolocation.",
+      "People often associate me with Halloween."
+    ]
+  },
+  {
+    name: "Flamingo",
+    difficulty: "medium",
+    habitat: "river",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live near water.",
+      "My diet consists of algae and crustaceans.",
+      "I am known for my pink feathers.",
+      "People often associate me with balance."
+    ]
+  },
+  {
+    name: "Toad",
+    difficulty: "easy",
+    habitat: "river",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live near water.",
+      "My diet consists of insects.",
+      "I am similar to a frog.",
+      "People often associate me with bumps."
+    ]
+  },
+  {
+    name: "Hedgehog",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in forests.",
+      "I have sharp spines on my back.",
+      "I curl into a ball when scared.",
+      "People often associate me with cuteness."
+    ]
+  },
+  {
+    name: "Raccoon",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I am active at night.",
+      "I have a mask-like pattern on my face.",
+      "I rummage through garbage.",
+      "People often associate me with mischief."
+    ]
+  },
+  {
+    name: "Platypus",
+    difficulty: "hard",
+    habitat: "river",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I live in rivers in Australia.",
+      "I have a duck bill and lay eggs.",
+      "I am one of the only egg-laying mammals.",
+      "People often associate me with oddity."
+    ]
+  },
+  {
+    name: "Narwhal",
+    difficulty: "hard",
+    habitat: "ocean",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I live in the Arctic Ocean.",
+      "I have a long tusk like a unicorn.",
+      "I am sometimes called the unicorn of the sea.",
+      "People often associate me with fantasy."
+    ]
+  },
+  {
+    name: "Axolotl",
+    difficulty: "hard",
+    habitat: "river",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I live in lakes and canals in Mexico.",
+      "I can regrow my limbs.",
+      "I stay in my larval form for life.",
+      "People often associate me with uniqueness."
+    ]
+  },
+  {
+    name: "Meerkat",
+    difficulty: "easy",
+    habitat: "desert",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in deserts.",
+      "I stand on two legs to look around.",
+      "I am known for teamwork and alertness.",
+      "People often associate me with curiosity."
+    ]
+  },
+  {
+    name: "Orangutan",
+    difficulty: "medium",
+    habitat: "jungle",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live in jungles.",
+      "I am closely related to humans.",
+      "I have long arms for swinging in trees.",
+      "People often associate me with intelligence."
+    ]
+  },
+  {
+    name: "Chinchilla",
+    difficulty: "medium",
+    habitat: "mountain",
+    size: "small",
+    clues: [
+      "I am a small animal.",
+      "I typically live in mountains.",
+      "I have very soft fur.",
+      "I am known for being clean and active at night.",
+      "People often associate me with softness."
+    ]
+  },
+  {
+    name: "Cassowary",
+    difficulty: "hard",
+    habitat: "jungle",
+    size: "large",
+    clues: [
+      "I am a large bird.",
+      "I typically live in jungles.",
+      "I cannot fly.",
+      "I am known for my helmet-like crest and strong legs.",
+      "People often associate me with danger."
+    ]
+  },
+  {
+    name: "Snow Leopard",
+    difficulty: "hard",
+    habitat: "mountain",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I live in high mountains.",
+      "I have a long tail and thick fur.",
+      "I am elusive and stealthy.",
+      "People often associate me with rarity."
+    ]
+  },
+  {
+    name: "Wombat",
+    difficulty: "medium",
+    habitat: "forest",
+    size: "medium",
+    clues: [
+      "I am a medium-sized marsupial.",
+      "I typically live in burrows in forests.",
+      "I have a cube-shaped poop.",
+      "I am native to Australia.",
+      "People often associate me with burrowing."
+    ]
+  },
+  {
+    name: "Tapir",
+    difficulty: "medium",
+    habitat: "jungle",
+    size: "large",
+    clues: [
+      "I am a large animal.",
+      "I typically live in jungles.",
+      "I have a flexible snout.",
+      "I am related to horses and rhinos.",
+      "People often associate me with uniqueness."
+    ]
+  },
+  {
+    name: "Okapi",
+    difficulty: "hard",
+    habitat: "jungle",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I live in rainforests of central Africa.",
+      "I am related to giraffes.",
+      "I have zebra-like legs.",
+      "People often associate me with mystery."
+    ]
+  },
+  {
+    name: "Gazelle",
+    difficulty: "easy",
+    habitat: "plains",
+    size: "medium",
+    clues: [
+      "I am a medium-sized animal.",
+      "I typically live in plains.",
+      "I am very fast.",
+      "I have graceful horns.",
+      "People often associate me with speed."
+    ]
+  },
+  {
+    name: "Pufferfish",
+    difficulty: "hard",
+    habitat: "ocean",
+    size: "small",
+    clues: [
+      "I am a small fish.",
+      "I live in oceans.",
+      "I puff up when threatened.",
+      "Some of me are poisonous.",
+      "People often associate me with defense."
+    ]
+  }
 ];
 
     function startGame() {
@@ -328,6 +902,8 @@
         document.getElementById('play-again').style.display = 'inline-block';
         const timeTaken = Math.round((Date.now() - startTime) / 1000);
         document.getElementById('stats').textContent = `⏱️ Time: ${timeTaken}s | 🧠 Guesses: ${guessCount}`;
+        updateHighScore(timeTaken, guessCount);
+        logScore(timeTaken, guessCount);
         document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
       } else {
         currentClueIndex++;
@@ -344,6 +920,40 @@
         }
       }
     }
+    // Score tracking
+  let bestScore = localStorage.getItem('bestScore') || Infinity;
+
+  function updateHighScore(timeTaken, guessCount) {
+    const score = timeTaken + guessCount * 5;
+    if (score < bestScore) {
+      bestScore = score;
+      localStorage.setItem('bestScore', score);
+      document.getElementById('stats').innerHTML += `<br/>🏆 New High Score! Score: ${score}`;
+    } else {
+      document.getElementById('stats').innerHTML += `<br/>High Score to Beat: ${bestScore}`;
+    }
+  }
+  <div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
+  <script>
+    let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory') || '[]');
+
+    function logScore(timeTaken, guessCount) {
+      const score = timeTaken + guessCount * 5;
+      const timestamp = new Date().toLocaleString();
+      const entry = { animal: selectedAnimal.name, time: timeTaken, guesses: guessCount, score, timestamp };
+      scoreHistory.unshift(entry);
+      scoreHistory = scoreHistory.slice(0, 5); // keep only top 5
+      localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+      renderScoreboard();
+    }
+
+    function renderScoreboard() {
+      const sb = document.getElementById('scoreboard');
+      if (!scoreHistory.length) return;
+      sb.innerHTML = '<h3>📊 Scoreboard (last 5 games)</h3><ul>' + scoreHistory.map(e => `<li>${e.timestamp} — 🐾 ${e.animal}: ⏱ ${e.time}s | 🧠 ${e.guesses} guesses | 🏆 Score ${e.score}</li>`).join('') + '</ul>';
+    }
+
+    renderScoreboard();
   </script>
 </body>
 </html>
