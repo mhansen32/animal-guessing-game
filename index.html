@@ -26,6 +26,11 @@
       transition: width 0.5s linear;
     }
   </style>
+<audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+<audio id="wrongSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
+<audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+<audio id="wrongSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
+<audio id="bgm" src="https://cdn.pixabay.com/download/audio/2022/10/17/audio_5787b9ba21.mp3?filename=fantasy-game-loop-114055.mp3" preload="auto" loop autoplay></audio>
 </head>
 <body>
   <h1>🎮 Animal Guessing Game</h1>
@@ -392,17 +397,7 @@
   },
   {
     name: "Emu",
-    difficulty: "medium",
-    habitat: "plains",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in plains.",
-      "My diet consists of plants.",
-      "I am known for my speed.",
-      "People often associate me with agility."
-    ]
-  }
+    ...
   },
   {
     name: "Owl",
@@ -445,17 +440,7 @@
   },
   {
     name: "Cow",
-    difficulty: "easy",
-    habitat: "farm",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live on farms.",
-      "My diet consists of plants.",
-      "I am known for my milk.",
-      "People often associate me with calmness."
-    ]
-  }
+    ...
   },
   {
     name: "Goat",
@@ -896,6 +881,7 @@
       guessCount++;
       const guess = document.getElementById('guess').value.trim().toLowerCase();
       if (guess === selectedAnimal.name.toLowerCase()) {
+        document.getElementById('correctSound').play();
         document.getElementById('result').textContent = `🎉 Correct! The animal was ${selectedAnimal.name}.`;
         clearInterval(window.progressInterval);
         document.getElementById('game').style.display = 'none';
@@ -906,6 +892,7 @@
         logScore(timeTaken, guessCount);
         document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
       } else {
+        document.getElementById('wrongSound').play();
         currentClueIndex++;
         if (currentClueIndex >= selectedAnimal.clues.length) {
           document.getElementById('result').textContent = `😢 Out of clues! The animal was ${selectedAnimal.name}.`;
@@ -933,9 +920,8 @@
       document.getElementById('stats').innerHTML += `<br/>High Score to Beat: ${bestScore}`;
     }
   }
-  <div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
-  <script>
-    let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory') || '[]');
+  
+  let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory') || '[]');
 
     function logScore(timeTaken, guessCount) {
       const score = timeTaken + guessCount * 5;
@@ -954,6 +940,7 @@
     }
 
     renderScoreboard();
-  </script>
+  
+  <div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
 </body>
 </html>
