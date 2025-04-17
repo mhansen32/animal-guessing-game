@@ -12,6 +12,19 @@
   @keyframes fadeIn {
       to { opacity: 1; }
     }
+  #progress-container {
+      width: 100%;
+      background-color: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    #progress-bar {
+      width: 100%;
+      height: 10px;
+      background-color: #4caf50;
+      transition: width 0.5s linear;
+    }
   </style>
 </head>
 <body>
@@ -54,6 +67,7 @@
     <div class="result" id="result"></div>
     <div id="animal-image" style="margin-top: 1rem;"></div>
     <div id="stats" style="margin-top: 0.5rem; font-style: italic;"></div>
+    <div id="progress-container"><div id="progress-bar"></div></div>
     <button id="play-again" onclick="startGame()" style="display:none; margin-top: 1rem;">🔁 Play Again</button>
   </div>
 
@@ -262,6 +276,22 @@
 ];
 
     function startGame() {
+      if (window.progressInterval) clearInterval(window.progressInterval);
+      const progressBar = document.getElementById('progress-bar');
+      let timeLeft = 20; // 20 seconds to play
+      progressBar.style.width = '100%';
+      window.progressInterval = setInterval(() => {
+        timeLeft--;
+        progressBar.style.width = (timeLeft * 5) + '%';
+        if (timeLeft <= 0) {
+          clearInterval(window.progressInterval);
+          document.getElementById('result').textContent = `⏰ Time's up! The animal was ${selectedAnimal.name}.`;
+          clearInterval(window.progressInterval);
+        document.getElementById('game').style.display = 'none';
+          document.getElementById('play-again').style.display = 'inline-block';
+          document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
+        }
+      }, 1000);
       document.getElementById('play-again').style.display = 'none';
       const difficulty = document.getElementById('difficulty').value;
       const habitat = document.getElementById('habitat').value;
@@ -281,8 +311,9 @@
       selectedAnimal = filtered[Math.floor(Math.random() * filtered.length)];
       currentClueIndex = 0;
 
-      document.getElementById('game').style.display = 'block';
       document.getElementById('animal-image').innerHTML = '';
+      document.getElementById('result').textContent = '';
+      document.getElementById('game').style.display = 'block';
       document.getElementById('result').textContent = '';
       document.getElementById('clue').innerHTML = `🧩 Clue #${currentClueIndex + 1}: <span style="opacity: 0; display: inline-block; animation: fadeIn 0.6s forwards;">${selectedAnimal.clues[currentClueIndex]}</span>`;
     }
@@ -292,6 +323,7 @@
       const guess = document.getElementById('guess').value.trim().toLowerCase();
       if (guess === selectedAnimal.name.toLowerCase()) {
         document.getElementById('result').textContent = `🎉 Correct! The animal was ${selectedAnimal.name}.`;
+        clearInterval(window.progressInterval);
         document.getElementById('game').style.display = 'none';
         document.getElementById('play-again').style.display = 'inline-block';
         const timeTaken = Math.round((Date.now() - startTime) / 1000);
@@ -301,7 +333,8 @@
         currentClueIndex++;
         if (currentClueIndex >= selectedAnimal.clues.length) {
           document.getElementById('result').textContent = `😢 Out of clues! The animal was ${selectedAnimal.name}.`;
-          document.getElementById('game').style.display = 'none';
+          clearInterval(window.progressInterval);
+        document.getElementById('game').style.display = 'none';
         document.getElementById('play-again').style.display = 'inline-block';
         const timeTaken = Math.round((Date.now() - startTime) / 1000);
         document.getElementById('stats').textContent = `⏱️ Time: ${timeTaken}s | 🧠 Guesses: ${guessCount}`;
