@@ -837,12 +837,12 @@
         timeLeft--;
         progressBar.style.width = (timeLeft * 5) + '%';
         if (timeLeft <= 0) {
-          clearInterval(window.progressInterval);
-          document.getElementById('result').textContent = `⏰ Time's up! The animal was ${selectedAnimal.name}.`;
-          clearInterval(window.progressInterval);
+        clearInterval(window.progressInterval);
+        if (!selectedAnimal) return;
+        document.getElementById('result').textContent = `⏰ Time's up! The animal was ${selectedAnimal.name}.`;
         document.getElementById('game').style.display = 'none';
-          document.getElementById('play-again').style.display = 'inline-block';
-          document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
+        document.getElementById('play-again').style.display = 'inline-block';
+        document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
         }
       }, 1000);
       document.getElementById('play-again').style.display = 'none';
@@ -866,6 +866,8 @@
 
       document.getElementById('animal-image').innerHTML = '';
       document.getElementById('result').textContent = '';
+      document.getElementById('guess').value = '';
+      document.getElementById('guess').focus();
       document.getElementById('game').style.display = 'block';
       document.getElementById('result').textContent = '';
       document.getElementById('clue').innerHTML = `🧩 Clue #${currentClueIndex + 1}: <span style="opacity: 0; display: inline-block; animation: fadeIn 0.6s forwards;">${selectedAnimal.clues[currentClueIndex]}</span>`;
@@ -934,8 +936,7 @@
     }
 
     renderScoreboard();
-  
-  
-  <div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
+</script>
+<div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
 </body>
 </html>
