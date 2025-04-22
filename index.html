@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Animal Guessing Game</title>
   <style>
+    button {
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      transform: scale(1.03);
+      filter: brightness(1.1);
+    }
+    #result {
+      transition: opacity 0.4s ease-in-out;
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+    #animal-image img {
+      animation: fadeIn 0.8s ease forwards;
+    }
     body {
       font-family: Arial, sans-serif;
       background-color: #eaf4fb;
@@ -44,938 +59,239 @@
       0% { transform: translateY(0); opacity: 1; }
       100% { transform: translateY(300px); opacity: 0; }
     }
-    </style>
-    <audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
-    <audio id="wrongSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
-    <audio id="bgm" src="https://cdn.pixabay.com/download/audio/2022/10/17/audio_5787b9ba21.mp3?filename=fantasy-game-loop-114055.mp3" preload="auto" loop autoplay></audio>
-    <audio id="confettiSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+      @media screen and (max-width: 600px) {
+      body {
+        margin: 1rem;
+      }
+      input[type='text'] {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+      button {
+        width: 100%;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+      select {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        width: 100%;
+      }
+      #mute-toggle {
+        top: 0.5rem;
+        right: 0.5rem;
+      }
+    }
+  </style>
+  <audio id="correctSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+  <audio id="wrongSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg" preload="auto"></audio>
+  <audio id="bgm" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop autoplay></audio>
+  <audio id="confettiSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
 </head>
 <body>
-  <h1>🎮 Animal Guessing Game</h1>
-  <label>Choose difficulty:
-    <select id="difficulty">
-      <option value="easy">Easy</option>
-      <option value="medium">Medium</option>
-      <option value="hard">Hard</option>
-    </select>
-  </label><br />
-  <label>Filter by habitat:
-    <select id="habitat">
-      <option value="any">Any</option>
-      <option value="forest">Forest</option>
-      <option value="desert">Desert</option>
-      <option value="ocean">Ocean</option>
-      <option value="river">River</option>
-      <option value="farm">Farm</option>
-      <option value="home">Home</option>
-      <option value="tundra">Tundra</option>
-      <option value="jungle">Jungle</option>
-      <option value="plains">Plains</option>
-      <option value="mountain">Mountain</option>
-    </select>
-  </label><br />
-  <label>Filter by size:
-    <select id="size">
-      <option value="any">Any</option>
-      <option value="small">Small</option>
-      <option value="medium">Medium</option>
-      <option value="large">Large</option>
-    </select>
-  </label><br />
-  <button onclick="startGame()">Start Game</button>
-  <div id="game" style="display:none;">
-    <div class="clue" id="clue"></div>
-    <input type="text" id="guess" placeholder="Your guess..." onkeydown="if(event.key === 'Enter') checkGuess();" />
-    <button onclick="checkGuess()">Submit Guess</button>
-    <div class="result" id="result"></div>
-    <div id="animal-image" style="margin-top: 1rem;"></div>
-    <div id="stats" style="margin-top: 0.5rem; font-style: italic;"></div>
-    <div id="progress-container"><div id="progress-bar"></div></div>
-    <button id="play-again" onclick="startGame()" style="display:none; margin-top: 1rem;">🔁 Play Again</button>
+  <div style="max-width: 700px; margin: auto; text-align: center;">
+    <h1 style="font-size: 2.2rem; color: #1c4966;">🐾 Animal Guessing Game</h1>
+    <p style="font-size: 1.1rem; color: #333;">Select your filters and see if you can guess the animal in <strong>5 tries or less!</strong></p>
+
+    <div style="margin-bottom: 1rem;">
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+
+      <label for="habitat" style="margin-left: 1rem;">Habitat:</label>
+      <select id="habitat">
+        <option value="forest">Forest</option>
+        <option value="jungle">Jungle</option>
+        <option value="desert">Desert</option>
+        <option value="plains">Plains</option>
+        <option value="mountain">Mountain</option>
+        <option value="ocean">Ocean</option>
+        <option value="river">River</option>
+        <option value="tundra">Tundra</option>
+        <option value="home">Home</option>
+        <option value="farm">Farm</option>
+      </select>
+
+      <label for="size" style="margin-left: 1rem;">Size:</label>
+      <select id="size">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </div>
+
+    <button onclick="startGame()" style="padding: 0.6rem 1.2rem; font-size: 1rem; background-color: #2196f3; color: white; border: none; border-radius: 6px; cursor: pointer;">Start Game</button>
+
+    <div id="game" style="display: none; margin-top: 2rem;">
+      <button onclick="revealHint()" style="padding: 0.4rem 0.8rem; font-size: 0.9rem; background-color: #ff9800; color: white; border: none; border-radius: 4px; cursor: pointer;">🔍 Give me a hint</button>
+      <div id="clues" style="margin-bottom: 1rem;"></div>
+      <input type="text" id="guess" placeholder="Your guess..." onkeydown="if(event.key === 'Enter') checkGuess();">
+      <button onclick="checkGuess()" style="padding: 0.4rem 1rem; font-size: 1rem; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">Guess</button>
+
+      <div id="progress-container">
+        <div id="progress-bar"></div>
+      </div>
+
+      <div id="result" style="margin-top: 1rem; font-size: 1.1rem;"></div>
+      <div id="animal-image" style="margin-top: 1rem;"></div>
+    </div>
+
+    <button id="play-again" onclick="startGame()" style="padding: 0.5rem 1rem; font-size: 1rem; background-color: #673ab7; color: white; border: none; border-radius: 6px; cursor: pointer; display: none; margin-top: 2rem;">Play Again</button>
+    <div id="stats" style="margin-top: 2rem; font-weight: bold;"></div>
+    <div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
+    <div id="confetti-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999;"></div>
   </div>
+<script>
+// JavaScript logic for animal selection, gameplay, sound, confetti, progress bar, and scoreboard
+// Global game state variables
+const allAnimals = [];
+fetch('animals.json')
+  .then(response => response.json())
+  .then(data => allAnimals.push(...data))
+  .catch(err => console.error('Failed to load animals:', err));
+let selectedAnimal = null;
+let currentClueIndex = 0;
+let guessCount = 0;
+let bestScore = localStorage.getItem('bestScore') || Infinity;
+let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory') || '[]');
 
-  <script>
-    let selectedAnimal = null;
-    let currentClueIndex = 0;
-    let guessCount = 0;
-    let startTime = 0;
-    const animals = [
-  {
-    name: "Dolphin",
-    difficulty: "easy",
-    habitat: "ocean",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in oceans.",
-      "My diet consists of fish.",
-      "I am known for my intelligence.",
-      "People often associate me with friendliness."
-    ]
-  },
-  {
-    name: "Penguin",
-    difficulty: "medium",
-    habitat: "tundra",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in cold places.",
-      "My diet consists of fish.",
-      "I am known for my waddling.",
-      "People often associate me with cuteness."
-    ]
-  },
-  {
-    name: "Dog",
-    difficulty: "easy",
-    habitat: "home",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in homes.",
-      "My diet consists of meat.",
-      "I am known for my loyalty.",
-      "People often associate me with companionship."
-    ]
-  },
-  {
-    name: "Cat",
-    difficulty: "easy",
-    habitat: "home",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in homes.",
-      "My diet consists of meat.",
-      "I am known for my independence.",
-      "People often associate me with curiosity."
-    ]
-  },
-  {
-    name: "Frog",
-    difficulty: "easy",
-    habitat: "river",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live near water.",
-      "My diet consists of insects.",
-      "I am known for my jumping.",
-      "People often associate me with transformation."
-    ]
-  },
-  {
-    name: "Elephant",
-    difficulty: "easy",
-    habitat: "forest",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in forests.",
-      "My diet consists of plants.",
-      "I am known for my strength.",
-      "People often associate me with wisdom."
-    ]
-  },
-  {
-    name: "Tiger",
-    difficulty: "hard",
-    habitat: "jungle",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in jungles.",
-      "My diet consists of meat.",
-      "I am known for my strength.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Lion",
-    difficulty: "medium",
-    habitat: "plains",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in plains.",
-      "My diet consists of meat.",
-      "I am known as the king of the jungle.",
-      "People often associate me with power."
-    ]
-  },
-  {
-    name: "Giraffe",
-    difficulty: "easy",
-    habitat: "plains",
-    size: "large",
-    clues: [
-      "I am a tall animal.",
-      "I typically live in plains.",
-      "My diet consists of plants.",
-      "I am known for my long neck.",
-      "People often associate me with height."
-    ]
-  },
-  {
-    name: "Zebra",
-    difficulty: "medium",
-    habitat: "plains",
-    size: "medium",
-    clues: [
-      "I am a striped animal.",
-      "I typically live in plains.",
-      "My diet consists of plants.",
-      "I resemble a horse.",
-      "People often associate me with black and white."
-    ]
-  },
-  {
-    name: "Cheetah",
-    difficulty: "medium",
-    habitat: "desert",
-    size: "large",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in deserts.",
-      "My diet consists of meat.",
-      "I am known for my speed.",
-      "People often associate me with agility."
-    ]
-  },
-  {
-    name: "Leopard",
-    difficulty: "easy",
-    habitat: "jungle",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in jungles.",
-      "My diet consists of meat.",
-      "I am known for my strength.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Panda",
-    difficulty: "medium",
-    habitat: "mountain",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in forests.",
-      "My diet consists of plants.",
-      "I am known for my appearance.",
-      "People often associate me with cuteness."
-    ]
-  },
-  {
-    name: "Koala",
-    difficulty: "easy",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in forests.",
-      "My diet consists of plants.",
-      "I am known for my appearance.",
-      "People often associate me with cuteness."
-    ]
-  },
-  {
-    name: "Kangaroo",
-    difficulty: "medium",
-    habitat: "plains",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in plains.",
-      "My diet consists of plants.",
-      "I am known for hopping.",
-      "People often associate me with Australia."
-    ]
+function startGame() {
+  hintCount = 0;
+  const difficulty = document.getElementById('difficulty').value;
+  const habitat = document.getElementById('habitat').value;
+  const size = document.getElementById('size').value;
+
+  const filtered = allAnimals.filter(a => a.difficulty === difficulty && a.habitat === habitat && a.size === size);
+  if (filtered.length === 0) {
+    alert("No animals match that filter. Try different settings.");
+    return;
   }
-,
-  {
-    name: "Wallaby",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in wooded areas.",
-      "My diet consists of plants.",
-      "I am known for my hopping.",
-      "People often associate me with Australia."
-    ]
-  },
-  {
-    name: "Sloth",
-    difficulty: "easy",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in forests.",
-      "My diet consists of plants.",
-      "I am known for my slowness.",
-      "People often associate me with cuteness."
-    ]
-  },
-  {
-    name: "Anteater",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "medium",
-    clues: [
-      "I am a small animal.",
-      "I typically live in forests.",
-      "My diet consists of ants.",
-      "I am known for my long tongue.",
-      "People often associate me with uniqueness."
-    ]
-  },
-  {
-    name: "Armadillo",
-    difficulty: "medium",
-    habitat: "desert",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in deserts.",
-      "My diet consists of insects.",
-      "I am known for my armor.",
-      "People often associate me with uniqueness."
-    ]
-  },
-  {
-    name: "Hippopotamus",
-    difficulty: "hard",
-    habitat: "river",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in rivers.",
-      "My diet consists of plants.",
-      "I am known for my strength.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Rhinoceros",
-    difficulty: "hard",
-    habitat: "plains",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in plains.",
-      "My diet consists of plants.",
-      "I am known for my horn.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Crocodile",
-    difficulty: "hard",
-    habitat: "river",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in rivers.",
-      "My diet consists of meat.",
-      "I am known for my jaws.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Alligator",
-    difficulty: "hard",
-    habitat: "river",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in rivers.",
-      "My diet consists of meat.",
-      "I am known for my jaws.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Ostrich",
-    difficulty: "medium",
-    habitat: "plains",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in plains.",
-      "My diet consists of plants.",
-      "I am known for my speed.",
-      "People often associate me with agility."
-    ]
-  },
-  
-  {
-    name: "Owl",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in forests.",
-      "My diet consists of meat.",
-      "I am known for my night vision.",
-      "People often associate me with wisdom."
-    ]
-  },
-  {
-    name: "Rabbit",
-    difficulty: "easy",
-    habitat: "plains",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in meadows.",
-      "My diet consists of plants.",
-      "I am known for my speed.",
-      "People often associate me with fertility."
-    ]
-  },
-  {
-    name: "Horse",
-    difficulty: "easy",
-    habitat: "farm",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live on farms.",
-      "My diet consists of plants.",
-      "I am known for my speed.",
-      "People often associate me with strength."
-    ]
-  },
-  
-  {
-    name: "Goat",
-    difficulty: "easy",
-    habitat: "farm",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live on farms.",
-      "My diet consists of plants.",
-      "I am known for my horns.",
-      "People often associate me with mischief."
-    ]
-  },
-  {
-    name: "Sheep",
-    difficulty: "easy",
-    habitat: "farm",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live on farms.",
-      "My diet consists of plants.",
-      "I am known for my wool.",
-      "People often associate me with gentleness."
-    ]
-  },
-  {
-    name: "Llama",
-    difficulty: "medium",
-    habitat: "mountain",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in mountains.",
-      "My diet consists of plants.",
-      "I am known for my long neck.",
-      "People often associate me with stubbornness."
-    ]
-  },
-  {
-    name: "Camel",
-    difficulty: "medium",
-    habitat: "desert",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in deserts.",
-      "My diet consists of plants.",
-      "I am known for my humps.",
-      "People often associate me with endurance."
-    ]
-  },
-  {
-    name: "Moose",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in forests.",
-      "My diet consists of plants.",
-      "I am known for my antlers.",
-      "People often associate me with strength."
-    ]
-  },
-  {
-    name: "Deer",
-    difficulty: "easy",
-    habitat: "forest",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in forests.",
-      "My diet consists of plants.",
-      "I am known for my agility.",
-      "People often associate me with grace."
-    ]
-  },
-  {
-    name: "Squirrel",
-    difficulty: "easy",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in trees.",
-      "My diet consists of nuts.",
-      "I am known for my bushy tail.",
-      "People often associate me with energy."
-    ]
-  },
-  {
-    name: "Beaver",
-    difficulty: "medium",
-    habitat: "river",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live near rivers.",
-      "My diet consists of plants.",
-      "I am known for building dams.",
-      "People often associate me with industriousness."
-    ]
-  },
-  {
-    name: "Eagle",
-    difficulty: "medium",
-    habitat: "mountain",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in mountains.",
-      "My diet consists of meat.",
-      "I am known for my sharp vision.",
-      "People often associate me with freedom."
-    ]
-  },
-  {
-    name: "Octopus",
-    difficulty: "hard",
-    habitat: "ocean",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in oceans.",
-      "My diet consists of meat.",
-      "I am known for my intelligence.",
-      "People often associate me with mystery."
-    ]
-  },
-  {
-    name: "Wolf",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in forests.",
-      "My diet consists of meat.",
-      "I am known for my howl.",
-      "People often associate me with loyalty."
-    ]
-  },
-  {
-    name: "Peacock",
-    difficulty: "medium",
-    habitat: "jungle",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in jungles.",
-      "My diet consists of plants.",
-      "I am known for my colorful feathers.",
-      "People often associate me with beauty."
-    ]
-  },
-  {
-    name: "Bat",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I am active at night.",
-      "My diet consists of insects or fruit.",
-      "I use echolocation.",
-      "People often associate me with Halloween."
-    ]
-  },
-  {
-    name: "Flamingo",
-    difficulty: "medium",
-    habitat: "river",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live near water.",
-      "My diet consists of algae and crustaceans.",
-      "I am known for my pink feathers.",
-      "People often associate me with balance."
-    ]
-  },
-  {
-    name: "Toad",
-    difficulty: "easy",
-    habitat: "river",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live near water.",
-      "My diet consists of insects.",
-      "I am similar to a frog.",
-      "People often associate me with bumps."
-    ]
-  },
-  {
-    name: "Hedgehog",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in forests.",
-      "I have sharp spines on my back.",
-      "I curl into a ball when scared.",
-      "People often associate me with cuteness."
-    ]
-  },
-  {
-    name: "Raccoon",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I am active at night.",
-      "I have a mask-like pattern on my face.",
-      "I rummage through garbage.",
-      "People often associate me with mischief."
-    ]
-  },
-  {
-    name: "Platypus",
-    difficulty: "hard",
-    habitat: "river",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I live in rivers in Australia.",
-      "I have a duck bill and lay eggs.",
-      "I am one of the only egg-laying mammals.",
-      "People often associate me with oddity."
-    ]
-  },
-  {
-    name: "Narwhal",
-    difficulty: "hard",
-    habitat: "ocean",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I live in the Arctic Ocean.",
-      "I have a long tusk like a unicorn.",
-      "I am sometimes called the unicorn of the sea.",
-      "People often associate me with fantasy."
-    ]
-  },
-  {
-    name: "Axolotl",
-    difficulty: "hard",
-    habitat: "river",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I live in lakes and canals in Mexico.",
-      "I can regrow my limbs.",
-      "I stay in my larval form for life.",
-      "People often associate me with uniqueness."
-    ]
-  },
-  {
-    name: "Meerkat",
-    difficulty: "easy",
-    habitat: "desert",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in deserts.",
-      "I stand on two legs to look around.",
-      "I am known for teamwork and alertness.",
-      "People often associate me with curiosity."
-    ]
-  },
-  {
-    name: "Orangutan",
-    difficulty: "medium",
-    habitat: "jungle",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in jungles.",
-      "I am closely related to humans.",
-      "I have long arms for swinging in trees.",
-      "People often associate me with intelligence."
-    ]
-  },
-  {
-    name: "Chinchilla",
-    difficulty: "medium",
-    habitat: "mountain",
-    size: "small",
-    clues: [
-      "I am a small animal.",
-      "I typically live in mountains.",
-      "I have very soft fur.",
-      "I am known for being clean and active at night.",
-      "People often associate me with softness."
-    ]
-  },
-  {
-    name: "Cassowary",
-    difficulty: "hard",
-    habitat: "jungle",
-    size: "large",
-    clues: [
-      "I am a large bird.",
-      "I typically live in jungles.",
-      "I cannot fly.",
-      "I am known for my helmet-like crest and strong legs.",
-      "People often associate me with danger."
-    ]
-  },
-  {
-    name: "Snow Leopard",
-    difficulty: "hard",
-    habitat: "mountain",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I live in high mountains.",
-      "I have a long tail and thick fur.",
-      "I am elusive and stealthy.",
-      "People often associate me with rarity."
-    ]
-  },
-  {
-    name: "Wombat",
-    difficulty: "medium",
-    habitat: "forest",
-    size: "medium",
-    clues: [
-      "I am a medium-sized marsupial.",
-      "I typically live in burrows in forests.",
-      "I have a cube-shaped poop.",
-      "I am native to Australia.",
-      "People often associate me with burrowing."
-    ]
-  },
-  {
-    name: "Tapir",
-    difficulty: "medium",
-    habitat: "jungle",
-    size: "large",
-    clues: [
-      "I am a large animal.",
-      "I typically live in jungles.",
-      "I have a flexible snout.",
-      "I am related to horses and rhinos.",
-      "People often associate me with uniqueness."
-    ]
-  },
-  {
-    name: "Okapi",
-    difficulty: "hard",
-    habitat: "jungle",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I live in rainforests of central Africa.",
-      "I am related to giraffes.",
-      "I have zebra-like legs.",
-      "People often associate me with mystery."
-    ]
-  },
-  {
-    name: "Gazelle",
-    difficulty: "easy",
-    habitat: "plains",
-    size: "medium",
-    clues: [
-      "I am a medium-sized animal.",
-      "I typically live in plains.",
-      "I am very fast.",
-      "I have graceful horns.",
-      "People often associate me with speed."
-    ]
-  },
-  {
-    name: "Pufferfish",
-    difficulty: "hard",
-    habitat: "ocean",
-    size: "small",
-    clues: [
-      "I am a small fish.",
-      "I live in oceans.",
-      "I puff up when threatened.",
-      "Some of me are poisonous.",
-      "People often associate me with defense."
-    ]
+
+  selectedAnimal = filtered[Math.floor(Math.random() * filtered.length)];
+  currentClueIndex = 0;
+  guessCount = 0;
+
+  document.getElementById('game').style.display = 'block';
+  document.getElementById('clues').innerHTML = `<div style='animation: fadeIn 0.6s ease forwards;'>🔍 ${selectedAnimal.clues[0]}</div>`;
+  document.getElementById('result').textContent = '';
+  document.getElementById('animal-image').innerHTML = '';
+  document.getElementById('guess').value = '';
+  document.getElementById('guess').focus();
+  document.getElementById('play-again').style.display = 'none';
+  startTimer();
+}
+
+function startTimer() {
+  let timeLeft = 20;
+  const progressBar = document.getElementById('progress-bar');
+  progressBar.style.width = '100%';
+  progressBar.style.animation = 'none';
+  progressBar.offsetHeight;
+  progressBar.style.animation = 'pulseReset 0.5s ease';
+
+  if (window.progressInterval) clearInterval(window.progressInterval);
+  window.progressInterval = setInterval(() => {
+    timeLeft--;
+    progressBar.style.width = (timeLeft * 5) + '%';
+    if (timeLeft <= 0) {
+      clearInterval(window.progressInterval);
+      document.getElementById('result').textContent = `⏰ Time's up! The animal was ${selectedAnimal.name}.`;
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('play-again').style.display = 'inline-block';
+      document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
+    }
+  }, 1000);
+}
+
+let hintCount = 0;
+const maxHints = 2;
+
+function revealHint() {
+  if (hintCount >= maxHints) {
+    alert("🚫 No more hints available.");
+    return;
   }
-];
-
-    function startGame() {
-      if (window.progressInterval) clearInterval(window.progressInterval);
-      const progressBar = document.getElementById('progress-bar');
-      let timeLeft = 20; // 20 seconds to play
-      progressBar.style.width = '100%';
-      progressBar.style.animation = 'none';
-      progressBar.offsetHeight;
-      progressBar.style.animation = 'pulseReset 0.5s ease';
-      window.progressInterval = setInterval(() => {
-        timeLeft--;
-        progressBar.style.width = (timeLeft * 5) + '%';
-        if (timeLeft <= 0) {
-        clearInterval(window.progressInterval);
-        if (!selectedAnimal) return;
-        document.getElementById('result').textContent = `⏰ Time's up! The animal was ${selectedAnimal.name}.`;
-        document.getElementById('game').style.display = 'none';
-        document.getElementById('play-again').style.display = 'inline-block';
-        document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
-        launchConfetti();
-        }
-      }, 1000);
-      document.getElementById('play-again').style.display = 'none';
-      const difficulty = document.getElementById('difficulty').value;
-      const habitat = document.getElementById('habitat').value;
-      const size = document.getElementById('size').value;
-
-      guessCount = 0;
-      startTime = Date.now();
-      let filtered = animals.filter(a => a.difficulty === difficulty);
-      if (habitat !== 'any') filtered = filtered.filter(a => a.habitat === habitat);
-      if (size !== 'any') filtered = filtered.filter(a => a.size === size);
-
-      if (filtered.length === 0) {
-        alert('No animals match your filters. Try again!');
-        return;
-      }
-
-      selectedAnimal = filtered[Math.floor(Math.random() * filtered.length)];
-      currentClueIndex = 0;
-
-      document.getElementById('animal-image').innerHTML = '';
-      document.getElementById('result').textContent = '';
-      document.getElementById('guess').value = '';
-      document.getElementById('guess').focus();
-      document.getElementById('game').style.display = 'block';
-      document.getElementById('result').textContent = '';
-      document.getElementById('clue').innerHTML = `🧩 Clue #${currentClueIndex + 1}: <span style="opacity: 0; display: inline-block; animation: fadeIn 0.6s forwards;">${selectedAnimal.clues[currentClueIndex]}</span>`;
-    }
-
-    function checkGuess() {
-      if (window.progressInterval) clearInterval(window.progressInterval);
-      const progressBar = document.getElementById('progress-bar');
-      let timeLeft = 20;
-      progressBar.style.width = '100%';
-      window.progressInterval = setInterval(() => {
-        timeLeft--;
-        progressBar.style.width = (timeLeft * 5) + '%';
-        if (timeLeft <= 0) {
-          clearInterval(window.progressInterval);
-          if (!selectedAnimal) return;
-          document.getElementById('result').textContent = `⏰ Time's up! The animal was ${selectedAnimal.name}.`;
-          document.getElementById('game').style.display = 'none';
-          document.getElementById('play-again').style.display = 'inline-block';
-          document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
-        }
-      }, 1000);
-      guessCount++;
-      const guess = document.getElementById('guess').value.trim().toLowerCase();
-      if (guess === selectedAnimal.name.toLowerCase()) {
-        document.getElementById('correctSound').play();
-        document.getElementById('result').innerHTML = `🎉 Correct! The animal was <strong>${selectedAnimal.name}</strong>.<br><em>Fun fact: ${selectedAnimal.clues[selectedAnimal.clues.length - 1]}</em>`;
-        clearInterval(window.progressInterval);
-        document.getElementById('game').style.display = 'none';
-        document.getElementById('play-again').style.display = 'inline-block';
-        const timeTaken = Math.round((Date.now() - startTime) / 1000);
-        document.getElementById('stats').textContent = `⏱️ Time: ${timeTaken}s | 🧠 Guesses: ${guessCount}`;
-        updateHighScore(timeTaken, guessCount);
-        logScore(timeTaken, guessCount);
-        document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
-      } else {
-        document.getElementById('wrongSound').play();
-        currentClueIndex++;
-        if (currentClueIndex >= selectedAnimal.clues.length) {
-          document.getElementById('result').textContent = `😢 Out of clues! The animal was ${selectedAnimal.name}.`;
-          clearInterval(window.progressInterval);
-        document.getElementById('game').style.display = 'none';
-        document.getElementById('play-again').style.display = 'inline-block';
-        const timeTaken = Math.round((Date.now() - startTime) / 1000);
-        document.getElementById('stats').textContent = `⏱️ Time: ${timeTaken}s | 🧠 Guesses: ${guessCount}`;
-        document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
-        } else {
-          document.getElementById('clue').innerHTML = `🧩 Clue #${currentClueIndex + 1}: <span style="opacity: 0; display: inline-block; animation: fadeIn 0.6s forwards;">${selectedAnimal.clues[currentClueIndex]}</span>`;
-        }
-      }
-    }
-    // Score tracking
-  let bestScore = localStorage.getItem('bestScore') || Infinity;
-
-  function updateHighScore(timeTaken, guessCount) {
-    const score = timeTaken + guessCount * 5;
-    if (score < bestScore) {
-      bestScore = score;
-      localStorage.setItem('bestScore', score);
-      document.getElementById('stats').innerHTML += `<br/>🏆 New High Score! Score: ${score}`;
-    } else {
-      document.getElementById('stats').innerHTML += `<br/>High Score to Beat: ${bestScore}`;
-    }
+  if (selectedAnimal && currentClueIndex < selectedAnimal.clues.length - 1) {
+    currentClueIndex++;
+    hintCount++;
+    document.getElementById('clues').innerHTML += `<div style='animation: fadeIn 0.6s ease forwards;'>🔍 ${selectedAnimal.clues[currentClueIndex]}</div>`;
+    startTimer();
   }
-  
-  let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory') || '[]');
+}</div>`;
+    startTimer();
+  }
+}</div>`;
+  }
+}
 
-    function logScore(timeTaken, guessCount) {
-      const score = timeTaken + guessCount * 5;
-      const timestamp = new Date().toLocaleString();
-      const entry = { animal: selectedAnimal.name, time: timeTaken, guesses: guessCount, score, timestamp };
-      scoreHistory.unshift(entry);
-      scoreHistory = scoreHistory.slice(0, 5); // keep only top 5
-      localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
-      renderScoreboard();
+function checkGuess() {
+  const guess = document.getElementById('guess').value.toLowerCase().trim();
+  if (!selectedAnimal || guess === '') return;
+
+  guessCount++;
+  if (guess === selectedAnimal.name.toLowerCase()) {
+    document.getElementById('correctSound').play();
+    clearInterval(window.progressInterval);
+    document.getElementById('result').innerHTML = `🎉 Correct! The animal was <strong>${selectedAnimal.name}</strong>.<br><em>Fun fact: ${selectedAnimal.clues[selectedAnimal.clues.length - 1]}</em>`;
+    document.getElementById('game').style.display = 'none';
+    document.getElementById('play-again').style.display = 'inline-block';
+    document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
+    launchConfetti();
+    document.getElementById('confettiSound').play();
+    updateHighScore(20 - parseInt(document.getElementById('progress-bar').style.width) / 5, guessCount);
+    logScore(20 - parseInt(document.getElementById('progress-bar').style.width) / 5, guessCount);
+  } else {
+    document.getElementById('wrongSound').play();
+    if (guessCount >= 5) {
+      clearInterval(window.progressInterval);
+      document.getElementById('result').textContent = `❌ Out of guesses! The animal was ${selectedAnimal.name}.`;
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('play-again').style.display = 'inline-block';
+      document.getElementById('animal-image').innerHTML = `<img src='https://source.unsplash.com/400x300/?${encodeURIComponent(selectedAnimal.name)}' alt='${selectedAnimal.name}' style='max-width: 100%; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); margin-top: 1rem;'>`;
+      return;
     }
-
-    function renderScoreboard() {
-      const sb = document.getElementById('scoreboard');
-      if (!scoreHistory.length) return;
-      sb.innerHTML = '<h3>📊 Scoreboard (last 5 games)</h3><ul>' + scoreHistory.map(e => `<li>${e.timestamp} — 🐾 ${e.animal}: ⏱ ${e.time}s | 🧠 ${e.guesses} guesses | 🏆 Score ${e.score}</li>`).join('') + '</ul>';
+    currentClueIndex++;
+    if (currentClueIndex < selectedAnimal.clues.length) {
+      document.getElementById('clues').innerHTML += `<div style='animation: fadeIn 0.6s ease forwards;'>🔍 ${selectedAnimal.clues[currentClueIndex]}</div>`;
     }
+    document.getElementById('guess').value = '';
+    document.getElementById('guess').focus();
+    startTimer();
+  }
+}
 
-    renderScoreboard();
+function updateHighScore(timeTaken, guessCount) {
+  const score = timeTaken + guessCount * 5;
+  if (score < bestScore) {
+    bestScore = score;
+    localStorage.setItem('bestScore', score);
+    document.getElementById('stats').innerHTML = `🏆 New High Score! Score: ${score}`;
+  } else {
+    document.getElementById('stats').innerHTML = `High Score to Beat: ${bestScore}`;
+  }
+}
+
+function logScore(timeTaken, guessCount) {
+  const score = timeTaken + guessCount * 5;
+  const timestamp = new Date().toLocaleString();
+  const entry = { animal: selectedAnimal.name, time: timeTaken, guesses: guessCount, score, timestamp };
+  scoreHistory.unshift(entry);
+  scoreHistory = scoreHistory.slice(0, 5);
+  localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+  renderScoreboard();
+}
+
+function renderScoreboard() {
+  const sb = document.getElementById('scoreboard');
+  if (!scoreHistory.length) return;
+  sb.innerHTML = '<h3>📊 Scoreboard (last 5 games)</h3><ul>' + scoreHistory.map(e => `<li>${e.timestamp} — 🐾 ${e.animal}: ⏱ ${e.time}s | 🧠 ${e.guesses} guesses | 🏆 Score ${e.score}</li>`).join('') + '</ul>';
+}
+
 function launchConfetti() {
-  document.getElementById('confettiSound').play();
   const container = document.getElementById('confetti-container');
   for (let i = 0; i < 50; i++) {
     const confetti = document.createElement('div');
@@ -990,7 +306,25 @@ function launchConfetti() {
   }
 }
 </script>
-<div id="scoreboard" style="margin-top: 2rem; font-size: 0.9rem; color: #444;"></div>
-<div id="confetti-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999;"></div>
+</script>
+<button id="mute-toggle" onclick="toggleMute()" style="position: fixed; top: 1rem; right: 1rem; padding: 0.3rem 0.6rem;">🔊</button>
+<script>
+let isMuted = false;
+function toggleMute() {
+  isMuted = !isMuted;
+  document.getElementById('bgm').muted = isMuted;
+  document.getElementById('correctSound').muted = isMuted;
+  document.getElementById('wrongSound').muted = isMuted;
+  document.getElementById('confettiSound').muted = isMuted;
+  document.getElementById('mute-toggle').textContent = isMuted ? '🔇' : '🔊';
+}
+</script>
+<button onclick="cheatReveal()" style="position: fixed; bottom: 1rem; right: 1rem; padding: 0.4rem 0.6rem; font-size: 0.8rem; opacity: 0.4;">🧪 Cheat</button>
+<script>
+function cheatReveal() {
+  if (!selectedAnimal) return;
+  alert(`🧪 DEBUG: The answer is ${selectedAnimal.name}`);
+}
+</script>
 </body>
 </html>

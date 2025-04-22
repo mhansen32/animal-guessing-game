@@ -1,0 +1,457 @@
+[
+  {
+    "name": "Snow Leopard",
+    "difficulty": "hard",
+    "habitat": "mountain",
+    "size": "medium",
+    "clues": [
+      "I have thick fur to survive in cold climates.",
+      "I live in high mountainous regions.",
+      "I am rarely seen in the wild.",
+      "I have a long tail that helps with balance.",
+      "I am an endangered species."
+    ]
+  },
+  {
+    "name": "Koala",
+    "difficulty": "easy",
+    "habitat": "forest",
+    "size": "small",
+    "clues": [
+      "I sleep most of the day.",
+      "I only eat eucalyptus leaves.",
+      "I live in Australia.",
+      "I carry my babies in a pouch.",
+      "I am often mistaken for a bear."
+    ]
+  },
+  {
+    "name": "Seahorse",
+    "difficulty": "medium",
+    "habitat": "ocean",
+    "size": "small",
+    "clues": [
+      "I have a horse-like head.",
+      "I swim upright.",
+      "Males carry the babies.",
+      "I cling to seaweed with my tail.",
+      "I am very small and shy."
+    ]
+  },
+  {
+    "name": "Platypus",
+    "difficulty": "medium",
+    "habitat": "river",
+    "size": "small",
+    "clues": [
+      "I lay eggs but I\u2019m not a bird.",
+      "I have a duck-like bill.",
+      "I live in Australia.",
+      "I swim using webbed feet.",
+      "I am a mammal."
+    ]
+  },
+  {
+    "name": "Griffin",
+    "difficulty": "hard",
+    "habitat": "mountain",
+    "size": "large",
+    "clues": [
+      "I have the body of a lion and head of an eagle.",
+      "I am a mythical creature.",
+      "I guard treasure in ancient stories.",
+      "I can fly and roar.",
+      "I appear in many fantasy tales."
+    ]
+  },
+  {
+    "name": "Reindeer",
+    "difficulty": "easy",
+    "habitat": "tundra",
+    "size": "large",
+    "clues": [
+      "I live in cold, snowy regions.",
+      "I am associated with pulling sleighs.",
+      "I have large antlers.",
+      "Both males and females can have antlers.",
+      "I am featured in winter holiday stories."
+    ]
+  },
+  {
+    "name": "Turkey",
+    "difficulty": "easy",
+    "habitat": "farm",
+    "size": "medium",
+    "clues": [
+      "I am often seen around Thanksgiving.",
+      "I have a fan-shaped tail.",
+      "I make a gobbling sound.",
+      "I can fly short distances.",
+      "I am a farm bird."
+    ]
+  },
+  {
+    "name": "Sloth",
+    "difficulty": "medium",
+    "habitat": "jungle",
+    "size": "medium",
+    "clues": [
+      "I move very slowly.",
+      "I spend most of my life in trees.",
+      "I have long claws.",
+      "I sleep up to 20 hours a day.",
+      "I am native to Central and South America."
+    ]
+  },
+  {
+    "name": "Chameleon",
+    "difficulty": "hard",
+    "habitat": "jungle",
+    "size": "small",
+    "clues": [
+      "I can change my skin color.",
+      "I have a long, sticky tongue.",
+      "My eyes move independently.",
+      "I am an expert at camouflage.",
+      "I live in trees in warm climates."
+    ]
+  },
+  {
+    "name": "Moose",
+    "difficulty": "medium",
+    "habitat": "forest",
+    "size": "large",
+    "clues": [
+      "I have large, broad antlers.",
+      "I am the largest member of the deer family.",
+      "I am good at swimming.",
+      "I make grunting sounds.",
+      "I live in North American forests."
+    ]
+  },
+  {
+    "name": "Camel",
+    "difficulty": "easy",
+    "habitat": "desert",
+    "size": "large",
+    "clues": [
+      "I have humps on my back.",
+      "I can survive for days without water.",
+      "I am often used as transportation in deserts.",
+      "I have long eyelashes and nostrils that close.",
+      "I live in hot, dry environments."
+    ]
+  },
+  {
+    "name": "Axolotl",
+    "difficulty": "hard",
+    "habitat": "river",
+    "size": "small",
+    "clues": [
+      "I am a type of salamander.",
+      "I never grow out of my larval stage.",
+      "I can regenerate limbs.",
+      "I live underwater my whole life.",
+      "I am native to lakes in Mexico."
+    ]
+  },
+  {
+    "name": "Phoenix",
+    "difficulty": "hard",
+    "habitat": "mountain",
+    "size": "large",
+    "clues": [
+      "I am a mythical bird.",
+      "I burst into flames and am reborn.",
+      "I symbolize renewal and immortality.",
+      "I appear in legends across cultures.",
+      "I rise from my ashes."
+    ]
+  },
+  {
+    "name": "Walrus",
+    "difficulty": "medium",
+    "habitat": "tundra",
+    "size": "large",
+    "clues": [
+      "I have long tusks and whiskers.",
+      "I live in cold Arctic regions.",
+      "I can weigh over a ton.",
+      "I spend time on ice and in the water.",
+      "I use my tusks to haul out of the ocean."
+    ]
+  },
+  {
+    "name": "Fairy",
+    "difficulty": "medium",
+    "habitat": "forest",
+    "size": "small",
+    "clues": [
+      "I am a magical creature.",
+      "I have wings and can fly.",
+      "I am often depicted as tiny and glowing.",
+      "I appear in bedtime stories and folklore.",
+      "Sometimes I leave sparkles behind me."
+    ]
+  },
+  {
+    "name": "Octopus",
+    "difficulty": "medium",
+    "habitat": "ocean",
+    "size": "medium",
+    "clues": [
+      "I have eight arms.",
+      "I can squeeze through tiny spaces.",
+      "I can change my color to camouflage.",
+      "I squirt ink when threatened.",
+      "I am very intelligent for an invertebrate."
+    ]
+  },
+  {
+    "name": "Jellyfish",
+    "difficulty": "easy",
+    "habitat": "ocean",
+    "size": "medium",
+    "clues": [
+      "I have a soft, see-through body.",
+      "I can sting with my tentacles.",
+      "I drift with ocean currents.",
+      "I don\u2019t have a brain or heart.",
+      "I have been around for millions of years."
+    ]
+  },
+  {
+    "name": "Blue Whale",
+    "difficulty": "medium",
+    "habitat": "ocean",
+    "size": "large",
+    "clues": [
+      "I am the largest animal on Earth.",
+      "I breathe air but live in water.",
+      "I eat tiny shrimp-like creatures called krill.",
+      "My songs can travel long distances underwater.",
+      "I am a gentle giant of the sea."
+    ]
+  },
+  {
+    "name": "Clownfish",
+    "difficulty": "easy",
+    "habitat": "ocean",
+    "size": "small",
+    "clues": [
+      "I am orange with white stripes.",
+      "I live among sea anemones.",
+      "I was made famous by a movie.",
+      "I am a very small fish.",
+      "I can change from male to female."
+    ]
+  },
+  {
+    "name": "Manta Ray",
+    "difficulty": "medium",
+    "habitat": "ocean",
+    "size": "large",
+    "clues": [
+      "I have a flat, diamond-shaped body.",
+      "I glide through the water like a bird.",
+      "I am often seen in tropical oceans.",
+      "I feed by filtering plankton.",
+      "I am gentle despite my size."
+    ]
+  },
+  {
+    "name": "Cow",
+    "difficulty": "easy",
+    "habitat": "farm",
+    "size": "large",
+    "clues": [
+      "I produce milk.",
+      "I often wear a bell around my neck.",
+      "I say 'moo'.",
+      "I have four stomach compartments.",
+      "I am raised for meat and dairy."
+    ]
+  },
+  {
+    "name": "Pig",
+    "difficulty": "easy",
+    "habitat": "farm",
+    "size": "medium",
+    "clues": [
+      "I love rolling in mud.",
+      "I make an 'oink' sound.",
+      "I am highly intelligent.",
+      "I have a curly tail.",
+      "I am raised for pork."
+    ]
+  },
+  {
+    "name": "Chicken",
+    "difficulty": "easy",
+    "habitat": "farm",
+    "size": "small",
+    "clues": [
+      "I lay eggs.",
+      "I cluck and peck at the ground.",
+      "I have a comb on my head.",
+      "I am commonly raised in coops.",
+      "I can flap but not fly far."
+    ]
+  },
+  {
+    "name": "Sheep",
+    "difficulty": "easy",
+    "habitat": "farm",
+    "size": "medium",
+    "clues": [
+      "I grow wool.",
+      "I say 'baa'.",
+      "I am often herded by dogs.",
+      "I am known for flocking behavior.",
+      "I am raised for wool and meat."
+    ]
+  },
+  {
+    "name": "Goat",
+    "difficulty": "easy",
+    "habitat": "farm",
+    "size": "medium",
+    "clues": [
+      "I can climb steep hills and mountains.",
+      "I often have a beard.",
+      "I eat almost anything.",
+      "I have rectangular pupils.",
+      "I am raised for milk, meat, and fiber."
+    ]
+  },
+  {
+    "name": "Tiger",
+    "difficulty": "medium",
+    "habitat": "jungle",
+    "size": "large",
+    "clues": [
+      "I have orange fur with black stripes.",
+      "I am a stealthy predator.",
+      "I am one of the largest big cats.",
+      "I often hunt alone at night.",
+      "I can swim very well."
+    ]
+  },
+  {
+    "name": "Monkey",
+    "difficulty": "easy",
+    "habitat": "jungle",
+    "size": "small",
+    "clues": [
+      "I am very playful and curious.",
+      "I use my tail to help me balance.",
+      "I can swing from trees.",
+      "I eat fruit, leaves, and insects.",
+      "I am a primate."
+    ]
+  },
+  {
+    "name": "Jaguar",
+    "difficulty": "hard",
+    "habitat": "jungle",
+    "size": "large",
+    "clues": [
+      "I have a spotted coat.",
+      "I am native to the Americas.",
+      "I am a powerful climber and swimmer.",
+      "I have one of the strongest bites among cats.",
+      "I stalk prey silently before attacking."
+    ]
+  },
+  {
+    "name": "Toucan",
+    "difficulty": "medium",
+    "habitat": "jungle",
+    "size": "small",
+    "clues": [
+      "I have a huge colorful beak.",
+      "I live high up in the rainforest canopy.",
+      "I eat fruit and small insects.",
+      "I make loud croaking calls.",
+      "I am a tropical bird."
+    ]
+  },
+  {
+    "name": "Gorilla",
+    "difficulty": "medium",
+    "habitat": "jungle",
+    "size": "large",
+    "clues": [
+      "I am the largest living primate.",
+      "I live in groups called troops.",
+      "I am mostly herbivorous.",
+      "I walk on my knuckles.",
+      "I am very strong and intelligent."
+    ]
+  },
+  {
+    "name": "Dog",
+    "difficulty": "easy",
+    "habitat": "home",
+    "size": "medium",
+    "clues": [
+      "I am known as 'man's best friend'.",
+      "I can be trained to follow commands.",
+      "I come in many breeds and sizes.",
+      "I wag my tail when I\u2019m happy.",
+      "I bark and love companionship."
+    ]
+  },
+  {
+    "name": "Cat",
+    "difficulty": "easy",
+    "habitat": "home",
+    "size": "small",
+    "clues": [
+      "I purr when I\u2019m content.",
+      "I am known for being independent.",
+      "I chase mice and sleep a lot.",
+      "I like climbing and scratching posts.",
+      "I say 'meow'."
+    ]
+  },
+  {
+    "name": "Hamster",
+    "difficulty": "easy",
+    "habitat": "home",
+    "size": "small",
+    "clues": [
+      "I run on a wheel.",
+      "I am very small and furry.",
+      "I live in a cage or habitat.",
+      "I am active at night.",
+      "I stuff food into my cheeks."
+    ]
+  },
+  {
+    "name": "Goldfish",
+    "difficulty": "easy",
+    "habitat": "home",
+    "size": "small",
+    "clues": [
+      "I live in a bowl or aquarium.",
+      "I have shiny scales.",
+      "I don\u2019t have eyelids.",
+      "I swim silently all day.",
+      "I am often a first pet for kids."
+    ]
+  },
+  {
+    "name": "Parrot",
+    "difficulty": "medium",
+    "habitat": "home",
+    "size": "small",
+    "clues": [
+      "I can mimic human speech.",
+      "I am very colorful.",
+      "I like to perch and nibble.",
+      "I live in a cage but like to fly around indoors.",
+      "I am a very social bird."
+    ]
+  }
+]
